@@ -1,6 +1,8 @@
 class AppString {
   static const String noRouteFound = "No Route Found!";
 
+  static const String skip = "Skip";
+
   static const String onBoardingTitle1 = "VEJA OS MELHORES PRODUTOS! #1";
   static const String onBoardingTitle2 = "VEJA OS MELHORES PRODUTOS! #2";
   static const String onBoardingTitle3 = "VEJA OS MELHORES PRODUTOS! #3";
