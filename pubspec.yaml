@@ -11,9 +11,10 @@ environment:
 dependencies:
   flutter_svg: ^2.0.10+1
   retrofit: ^4.1.0
-  analyzer: ^6.8.0
+  analyzer: ^6.4.1
   dio: ^5.5.0+1
   retrofit_generator: ^8.1.2
+  json_annotation: ^4.9.0
 
   flutter:
     sdk: flutter
@@ -21,9 +22,10 @@ dependencies:
   cupertino_icons: ^1.0.6
 
 dev_dependencies:
-  json_serializable: ^6.8.0
   flutter_test:
     sdk: flutter
+  json_serializable: ^6.8.0
+  build_runner: ^2.4.9
 
   flutter_lints: ^3.0.0
 
