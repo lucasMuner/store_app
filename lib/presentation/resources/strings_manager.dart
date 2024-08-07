@@ -13,4 +13,12 @@ class AppString {
       "Aqui temos os melhores produtos do mercado! #2";
   static const String onBoardingSubTitle3 =
       "VAqui temos os melhores produtos do mercado! #3";
+
+  static const String userName = "Usuário";
+  static const String userNameError = "O usuário está errado!";
+  static const String password = "Senha";
+  static const String passwordError = "A senha está incorreta!";
+  static const String login = "Login";
+  static const String forgetPassword = "Esqueceu a senha";
+  static const String registerText = "Não é membro? Se inscreva ";
 }

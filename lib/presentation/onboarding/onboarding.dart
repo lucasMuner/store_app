@@ -7,7 +7,7 @@ import 'package:flutter_advanced_app/presentation/resources/strings_manager.dart
 import 'package:flutter_advanced_app/presentation/resources/values_manager.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../domain/model.dart';
+import '../../domain/model/model.dart';
 import '../resources/routes_manager.dart';
 
 class OnBoardingView extends StatefulWidget {

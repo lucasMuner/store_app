@@ -28,3 +28,11 @@ class Authentication {
 
   Authentication(this.customer, this.contact);
 }
+
+class DeviceInfo {
+  String name;
+  String identifier;
+  String version;
+
+  DeviceInfo(this.name, this.identifier, this.version);
+}
