@@ -67,7 +67,6 @@ class _LoginViewState extends State<LoginView> {
                   ),
                   child: StreamBuilder<bool>(
                     stream: _viewModel.outputIsUserNameValid,
-                    initialData: true,
                     builder: (context, snapshot) {
                       return TextFormField(
                         keyboardType: TextInputType.emailAddress,

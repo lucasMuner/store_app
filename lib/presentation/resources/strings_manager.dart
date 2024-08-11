@@ -20,5 +20,9 @@ class AppString {
   static const String passwordError = "A senha está incorreta!";
   static const String login = "Login";
   static const String forgetPassword = "Esqueceu a senha";
-  static const String registerText = "Não é membro? Se inscreva ";
+  static const String registerText = "Não é membro? Se inscreva";
+
+  static const String ok = "Ok";
+  static const String retryAgain = "Recarregar";
+  static const String loading = "Loading...";
 }

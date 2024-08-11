@@ -57,7 +57,7 @@ class LoginViewModel extends BaseViewModel
 
   @override
   setPassword(String password) {
-    inputUserName.add(password);
+    inputPassword.add(password);
     loginObject = loginObject.copyWith(password: password);
     _validate();
   }
@@ -70,22 +70,18 @@ class LoginViewModel extends BaseViewModel
   }
 
   @override
-  // TODO: implement inputIsAllValid
   Sink get inputIsAllValid => _isAllInputsValidStreamController.sink;
 
   //outputs
   @override
-  // TODO: implement outputIsPasswordValid
   Stream<bool> get outputIsPasswordValid => _passawordStreamController.stream
       .map((password) => _isPasswordValid(password));
 
   @override
-  // TODO: implement outputIsUserNameValid
   Stream<bool> get outputIsUserNameValid => _userNameStreamController.stream
       .map((userName) => _isUserNamedValid(userName));
 
   @override
-  // TODO: implement outputIsAllInputsValid
   Stream<bool> get outputIsAllInputsValid =>
       _isAllInputsValidStreamController.stream.map((_) => _isAllInputsValid());
 

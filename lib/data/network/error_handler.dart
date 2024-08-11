@@ -117,6 +117,7 @@ class ResponseCode {
       500; // failure, crash happened in server side
 
   // local status codes
+  static const int DEFAULT = 0;
   static const int UNKNOWN = -1;
   static const int CONNECT_TIMEOUT = -2;
   static const int CANCEL = -3;
