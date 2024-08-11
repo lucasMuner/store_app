@@ -16,6 +16,7 @@ dependencies:
   retrofit_generator: ^8.1.2
   json_annotation: ^4.9.0
   dartz: ^0.10.1
+  lottie: ^3.1.2
 
   flutter:
     sdk: flutter
@@ -51,6 +52,9 @@ flutter:
     - assets/images/solid_circle_ic.svg
     - assets/images/hollow_circle_ic.svg
     - assets/images/login.png
+    - assets/json/loading.json
+    - assets/json/empty.json
+    - assets/json/error.json
 
   fonts:
      - family: Montserrat

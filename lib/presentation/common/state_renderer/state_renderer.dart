@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_app/data/mapper/mapper.dart';
+import 'package:flutter_advanced_app/presentation/resources/assets_manager.dart';
 import 'package:flutter_advanced_app/presentation/resources/color_manager.dart';
 import 'package:flutter_advanced_app/presentation/resources/font_manager.dart';
 import 'package:flutter_advanced_app/presentation/resources/strings_manager.dart';
 import 'package:flutter_advanced_app/presentation/resources/styles_manager.dart';
 import 'package:flutter_advanced_app/presentation/resources/values_manager.dart';
+import 'package:lottie/lottie.dart';
 
 import '../../../data/network/failure.dart';
 
@@ -47,25 +49,28 @@ class StateRenderer extends StatelessWidget {
   Widget _getStateWidget(BuildContext context) {
     switch (stateRendererType) {
       case StateRendererType.POPUP_LOADING_STATE:
-        return _getPoPUpDialog(context, [_getAnimatedImage()]);
+        return _getPoPUpDialog(
+            context, [_getAnimatedImage(JsonAssets.loading)]);
       case StateRendererType.POPUP_ERROR_STATE:
         return _getPoPUpDialog(context, [
-          _getAnimatedImage(),
+          _getAnimatedImage(JsonAssets.error),
           _getMessage(message),
           _getRetryButton(AppString.ok, context)
         ]);
       case StateRendererType.FULL_SCREEN_LOADING_STATE:
-        return _getItemsInColumn([_getAnimatedImage(), _getMessage(message)]);
+        return _getItemsInColumn(
+            [_getAnimatedImage(JsonAssets.loading), _getMessage(message)]);
       case StateRendererType.FULL_SCREEN_ERROR_STATE:
         return _getItemsInColumn([
-          _getAnimatedImage(),
+          _getAnimatedImage(JsonAssets.error),
           _getMessage(failure.message),
           _getRetryButton(AppString.retryAgain, context)
         ]);
       case StateRendererType.CONTENT_SCREEN_STATE:
         return Container();
       case StateRendererType.EMPTY_SCREEN_STATE:
-        return _getItemsInColumn([_getAnimatedImage(), _getMessage(message)]);
+        return _getItemsInColumn(
+            [_getAnimatedImage(JsonAssets.empty), _getMessage(message)]);
       default:
         return Container();
     }
@@ -104,11 +109,11 @@ class StateRenderer extends StatelessWidget {
     );
   }
 
-  Widget _getAnimatedImage() {
+  Widget _getAnimatedImage(String animationName) {
     return SizedBox(
       width: AppSize.s100,
       height: AppSize.s100,
-      child: Container(), // json image
+      child: Lottie.asset(animationName), // json image
     );
   }
 
