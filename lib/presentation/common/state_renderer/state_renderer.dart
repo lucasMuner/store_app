@@ -8,8 +8,6 @@ import 'package:flutter_advanced_app/presentation/resources/styles_manager.dart'
 import 'package:flutter_advanced_app/presentation/resources/values_manager.dart';
 import 'package:lottie/lottie.dart';
 
-import '../../../data/network/failure.dart';
-
 enum StateRendererType {
   // POP UP STATES
   POPUP_LOADING_STATE,
@@ -24,7 +22,6 @@ enum StateRendererType {
 
 class StateRenderer extends StatelessWidget {
   StateRendererType stateRendererType;
-  Failure failure;
   String message;
   String title;
   Function? retryActionFunction;
@@ -32,13 +29,11 @@ class StateRenderer extends StatelessWidget {
   StateRenderer(
       {Key? key,
       required this.stateRendererType,
-      Failure? failure,
       String? message,
       String? title,
       required this.retryActionFunction})
       : message = message ?? AppString.loading,
         title = title ?? EMPTY,
-        failure = failure ?? DefaultFailure(),
         super(key: key);
 
   @override
@@ -63,7 +58,7 @@ class StateRenderer extends StatelessWidget {
       case StateRendererType.FULL_SCREEN_ERROR_STATE:
         return _getItemsInColumn([
           _getAnimatedImage(JsonAssets.error),
-          _getMessage(failure.message),
+          _getMessage(message),
           _getRetryButton(AppString.retryAgain, context)
         ]);
       case StateRendererType.CONTENT_SCREEN_STATE:
@@ -145,11 +140,14 @@ class StateRenderer extends StatelessWidget {
                 retryActionFunction
                     ?.call(); // to call the API function again to retry
               } else {
-                Navigator.of(context)
-                    .pop(); // popup state error so we need to dismiss the dialog
+                Navigator.of(context).pop();
+                // popup state error so we need to dismiss the dialog
               }
             },
-            child: Text(buttonTitle),
+            child: Text(
+              buttonTitle,
+              style: TextStyle(color: ColorManager.white),
+            ),
           ),
         ),
       ),

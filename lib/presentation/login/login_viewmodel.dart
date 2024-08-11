@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter_advanced_app/domain/usecase/login_usecase.dart';
 import 'package:flutter_advanced_app/presentation/base/base_view_model.dart';
+import 'package:flutter_advanced_app/presentation/common/state_renderer/state_renderer.dart';
 import 'package:flutter_advanced_app/presentation/common/state_renderer/state_renderer_implementer.dart';
 
 import '../common/freezed_data_classes.dart';
@@ -24,7 +25,6 @@ class LoginViewModel extends BaseViewModel
   //inputs
   @override
   void dispose() {
-    // TODO: implement dispose
     _userNameStreamController.close();
     _passawordStreamController.close();
     _isAllInputsValidStreamController.close();
@@ -33,7 +33,7 @@ class LoginViewModel extends BaseViewModel
   @override
   void start() {
     // view tells state renderer, please show the content of the screen
-    inputSate.add(ContentState());
+    inputState.add(ContentState());
   }
 
   @override
@@ -43,17 +43,25 @@ class LoginViewModel extends BaseViewModel
   Sink get inputUserName => _userNameStreamController.sink;
 
   @override
+  Sink get inputIsAllValid => _isAllInputsValidStreamController.sink;
+
+  @override
   login() async {
+    inputState.add(
+        LoadingState(stateRendererType: StateRendererType.POPUP_LOADING_STATE));
     (await _loginUseCase.execute(
             LoginUseCaseInput(loginObject.userName, loginObject.password)))
         .fold(
             (failure) => {
                   // failure
-                  print(failure.message)
+                  inputState.add(ErrorState(
+                      StateRendererType.POPUP_ERROR_STATE, failure.message))
                 },
             (data) => {
                   // data
-                  print(data.customer?.name)
+                  inputState.add(ContentState())
+
+                  // navigate to main screen after the login
                 });
   }
 
@@ -70,9 +78,6 @@ class LoginViewModel extends BaseViewModel
     loginObject = loginObject.copyWith(userName: userName);
     _validate();
   }
-
-  @override
-  Sink get inputIsAllValid => _isAllInputsValidStreamController.sink;
 
   //outputs
   @override

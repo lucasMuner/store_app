@@ -30,6 +30,7 @@ class ErrorState extends FlowState {
   String message;
 
   ErrorState(this.stateRendererType, this.message);
+
   @override
   String getMessage() => message;
 
@@ -40,6 +41,7 @@ class ErrorState extends FlowState {
 // Content State
 class ContentState extends FlowState {
   ContentState();
+
   @override
   String getMessage() => EMPTY;
 
@@ -75,6 +77,7 @@ extension FlowStateExtension on FlowState {
           } else {
             return StateRenderer(
                 stateRendererType: getStateRendererType(),
+                message: getMessage(),
                 retryActionFunction: retryActionFunction);
           }
         }
@@ -94,6 +97,7 @@ extension FlowStateExtension on FlowState {
           } else {
             return StateRenderer(
                 stateRendererType: getStateRendererType(),
+                message: getMessage(),
                 retryActionFunction: retryActionFunction);
           }
         }
@@ -113,22 +117,24 @@ extension FlowStateExtension on FlowState {
   }
 
   dismissDialog(BuildContext context) {
-    if (_isTherCurrentDialogShowing(context)) {
+    if (_isThereCurrentDialogShowing(context)) {
       Navigator.of(context, rootNavigator: true).pop(true);
     }
   }
 
-  _isTherCurrentDialogShowing(BuildContext context) =>
+  _isThereCurrentDialogShowing(BuildContext context) =>
       ModalRoute.of(context)?.isCurrent != true;
 
-  showPopUp(BuildContext context, StateRendererType stateRendererType,
-      String message) {
+  showPopUp(
+      BuildContext context, StateRendererType stateRendererType, String message,
+      {String title = EMPTY}) {
     WidgetsBinding.instance?.addPostFrameCallback(
       (_) => showDialog(
         context: context,
         builder: (BuildContext context) => StateRenderer(
           stateRendererType: stateRendererType,
           message: message,
+          title: title,
           retryActionFunction: () {},
         ),
       ),

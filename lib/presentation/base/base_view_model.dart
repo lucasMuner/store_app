@@ -8,7 +8,7 @@ abstract class BaseViewModel extends BaseViewModelInputs
       StreamController<FlowState>.broadcast();
 
   @override
-  Sink get inputSate => _inputStateStreamController.sink;
+  Sink get inputState => _inputStateStreamController.sink;
 
   @override
   Stream<FlowState> get outputState =>
@@ -24,7 +24,7 @@ abstract class BaseViewModelInputs {
   void start();
   void dispose();
 
-  Sink get inputSate;
+  Sink get inputState;
 }
 
 mixin BaseViewModelOutputs {
