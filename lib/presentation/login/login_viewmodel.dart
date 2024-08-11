@@ -26,6 +26,7 @@ class LoginViewModel extends BaseViewModel
     // TODO: implement dispose
     _userNameStreamController.close();
     _passawordStreamController.close();
+    _isAllInputsValidStreamController.close();
   }
 
   @override
@@ -86,9 +87,7 @@ class LoginViewModel extends BaseViewModel
   @override
   // TODO: implement outputIsAllInputsValid
   Stream<bool> get outputIsAllInputsValid =>
-      _isAllInputsValidStreamController.stream.map(
-        (_) => _isAllInputsValid(),
-      );
+      _isAllInputsValidStreamController.stream.map((_) => _isAllInputsValid());
 
   // private functions
   _validate() {
@@ -122,6 +121,5 @@ mixin LoginViewModelInputs {
 mixin LoginViewModelOutputs {
   Stream<bool> get outputIsUserNameValid;
   Stream<bool> get outputIsPasswordValid;
-
   Stream<bool> get outputIsAllInputsValid;
 }

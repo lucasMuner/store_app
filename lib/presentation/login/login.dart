@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_advanced_app/data/data_source/remote_data_source.dart';
-import 'package:flutter_advanced_app/data/repository/repository_implementer.dart';
-import 'package:flutter_advanced_app/domain/repository/repository.dart';
-import 'package:flutter_advanced_app/domain/usecase/login_usecase.dart';
 import 'package:flutter_advanced_app/presentation/login/login_viewmodel.dart';
 import 'package:flutter_advanced_app/presentation/resources/assets_manager.dart';
 import 'package:flutter_advanced_app/presentation/resources/color_manager.dart';
 import 'package:flutter_advanced_app/presentation/resources/strings_manager.dart';
 import 'package:flutter_advanced_app/presentation/resources/values_manager.dart';
 
+import '../../app/di.dart';
 import '../resources/routes_manager.dart';
 
 class LoginView extends StatefulWidget {
@@ -19,11 +16,7 @@ class LoginView extends StatefulWidget {
 }
 
 class _LoginViewState extends State<LoginView> {
-  // RemoteDataSource _remoteDataSource = RemoteDataSourceImplementer(_appServiceClient);
-  // Repository _repository = RepositoryImplementer(_remoteDataSource, _networkInfo);
-  // LoginUseCase _loginUseCase = LoginUseCase(_repository);
-  LoginViewModel _viewModel =
-      LoginViewModel(_loginUseCase); // todo pass login Use Case
+  LoginViewModel _viewModel = instance<LoginViewModel>();
 
   TextEditingController _userNameController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
@@ -74,6 +67,7 @@ class _LoginViewState extends State<LoginView> {
                   ),
                   child: StreamBuilder<bool>(
                     stream: _viewModel.outputIsUserNameValid,
+                    initialData: true,
                     builder: (context, snapshot) {
                       return TextFormField(
                         keyboardType: TextInputType.emailAddress,
@@ -81,9 +75,9 @@ class _LoginViewState extends State<LoginView> {
                         decoration: InputDecoration(
                             hintText: AppString.userName,
                             labelText: AppString.userName,
-                            errorText: (snapshot.data ?? false)
-                                ? AppString.userNameError
-                                : null),
+                            errorText: (snapshot.data ?? true)
+                                ? null
+                                : AppString.userNameError),
                       );
                     },
                   ),
@@ -101,7 +95,7 @@ class _LoginViewState extends State<LoginView> {
                     builder: (context, snapshot) {
                       return TextFormField(
                         keyboardType: TextInputType.visiblePassword,
-                        controller: _userNameController,
+                        controller: _passwordController,
                         decoration: InputDecoration(
                             hintText: AppString.password,
                             labelText: AppString.password,
@@ -130,7 +124,10 @@ class _LoginViewState extends State<LoginView> {
                                   _viewModel.login();
                                 }
                               : null,
-                          child: Text(AppString.login),
+                          child: Text(
+                            AppString.login,
+                            style: TextStyle(color: ColorManager.white),
+                          ),
                         ),
                       );
                     },

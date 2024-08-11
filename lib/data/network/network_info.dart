@@ -12,7 +12,7 @@ class NetworkInfoImplementer implements NetworkInfo {
   Future<bool> get isConnected async {
     final List<ConnectivityResult> result =
         await _connectivity.checkConnectivity();
-    return result == ConnectivityResult.mobile ||
-        result == ConnectivityResult.wifi;
+    return result.contains(ConnectivityResult.mobile) ||
+        result.contains(ConnectivityResult.wifi);
   }
 }
